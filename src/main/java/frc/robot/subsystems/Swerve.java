@@ -31,21 +31,25 @@ public class Swerve extends SubsystemBase {
 	private final MAXSwerveModule m_frontLeft = new MAXSwerveModule(
 			DriveConstants.kFrontLeftDrivingCanId,
 			DriveConstants.kFrontLeftTurningCanId,
+			DriveConstants.kFrontLeftEncoderId,
 			DriveConstants.kFrontLeftChassisAngularOffset);
 
 	private final MAXSwerveModule m_frontRight = new MAXSwerveModule(
 			DriveConstants.kFrontRightDrivingCanId,
 			DriveConstants.kFrontRightTurningCanId,
+			DriveConstants.kFrontRightEncoderId,
 			DriveConstants.kFrontRightChassisAngularOffset);
 
 	private final MAXSwerveModule m_rearLeft = new MAXSwerveModule(
 			DriveConstants.kRearLeftDrivingCanId,
 			DriveConstants.kRearLeftTurningCanId,
+			DriveConstants.kBackLeftEncoderId,
 			DriveConstants.kBackLeftChassisAngularOffset);
 
 	private final MAXSwerveModule m_rearRight = new MAXSwerveModule(
 			DriveConstants.kRearRightDrivingCanId,
 			DriveConstants.kRearRightTurningCanId,
+			DriveConstants.kBackRightEncoderId,
 			DriveConstants.kBackRightChassisAngularOffset);
 
 	// The gyro sensor

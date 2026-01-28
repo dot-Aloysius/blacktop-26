@@ -43,12 +43,12 @@ public class MAXSwerveModule {
 	 * MAXSwerve Module built with NEOs, SPARKS MAX, and a Through Bore
 	 * Encoder.
 	 */
-	public MAXSwerveModule(int drivingCANId, int turningCANId, double chassisAngularOffset) {
+	public MAXSwerveModule(int drivingCANId, int turningCANId, int CANcoderId, double chassisAngularOffset) {
 		m_drivingSpark = new SparkMax(drivingCANId, MotorType.kBrushless);
 		m_turningSpark = new SparkMax(turningCANId, MotorType.kBrushless);
 
 		m_drivingEncoder = m_drivingSpark.getEncoder();
-		m_turningEncoder = new CANcoder(18);
+		m_turningEncoder = new CANcoder(CANcoderId);
 
 		m_drivingClosedLoopController = m_drivingSpark.getClosedLoopController();
 		// m_turningClosedLoopController = m_turningSpark.getClosedLoopController();
@@ -108,7 +108,7 @@ public class MAXSwerveModule {
 		correctedDesiredState.optimize(Rotation2d.fromRotations(m_turningEncoder.getAbsolutePosition().getValueAsDouble()));
 
 		// Command driving and turning SPARKS towards their respective setpoints.
-		m_drivingClosedLoopController.setReference(correctedDesiredState.speedMetersPerSecond, ControlType.kVelocity);
+		m_drivingClosedLoopController.setSetpoint(correctedDesiredState.speedMetersPerSecond, ControlType.kVelocity);
 		m_turningSpark.setVoltage(turnPID.calculate(m_turningEncoder.getAbsolutePosition().getValue().in(Radians), correctedDesiredState.angle.getRadians()));
 
 		m_desiredState = desiredState;

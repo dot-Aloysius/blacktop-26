@@ -79,6 +79,9 @@ public final class Constants {
 		public static final int kRearRightTurningCanId = 16;
 
 		public static final int kFrontLeftEncoderId = 18;
+		public static final int kFrontRightEncoderId = 19;
+		public static final int kBackLeftEncoderId = 20;
+		public static final int kBackRightEncoderId = 21;
 
 		public static final int kPigeonId = 22;
 
