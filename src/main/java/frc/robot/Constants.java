@@ -196,7 +196,7 @@ public final class Constants {
 			.reverseSoftLimitEnabled(false)
 			.forwardSoftLimitEnabled(false))
 		.apply(new AnalogSensorConfig()
-			.velocityConversionFactor\(armGearRatio))
+			.velocityConversionFactor(armGearRatio))
 		.apply(new ClosedLoopConfig()
 			.p(0)
 			.i(0)
