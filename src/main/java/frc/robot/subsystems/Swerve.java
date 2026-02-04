@@ -128,8 +128,6 @@ public class Swerve extends SubsystemBase {
 			double ySpeedDelivered = ySpeed.get() * DriveConstants.kMaxSpeedMetersPerSecond;
 			double rotDelivered = rot.get() * DriveConstants.kMaxAngularSpeed;
 
-			System.out.println(rotDelivered);
-
 			var swerveModuleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(
 					fieldRelative.get()
 							? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeedDelivered, ySpeedDelivered, rotDelivered,

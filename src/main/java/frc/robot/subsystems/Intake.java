@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 import frc.robot.Constants.IntakeConstants;
 
+import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
@@ -18,10 +19,11 @@ public class Intake extends SubsystemBase {
   SparkMax wheelMotor = new SparkMax(IntakeConstants.intakeWheelMotorID, MotorType.kBrushless);
   SparkMax netAngleMotor = new SparkMax(IntakeConstants.netAngleMotorID, MotorType.kBrushless);
 
+  SparkClosedLoopController AnglePID = armAngleMotor.getClosedLoopController();
+
   public Intake() {
-    SmartDashboard.putNumber("Arm Angle", armAngleMotor.get());
-    SmartDashboard.putNumber("Wheel Velocity", wheelMotor.get());
-    SmartDashboard.putNumber("Arm Angle", armAngleMotor.get());
+    armAngleMotor.getAbsoluteEncoder().getPosition();
+    AnglePID.
 
     
   }
@@ -29,5 +31,13 @@ public class Intake extends SubsystemBase {
   @Override
   public void periodic() {
     
+  }
+
+  public double getArmAngle() {
+    return armAngleMotor.getAbsoluteEncoder().getPosition(); 
+  }
+
+  public void setArmAngle() {
+    armAngleMotor.set
   }
 }

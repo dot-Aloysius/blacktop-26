@@ -5,13 +5,19 @@
 package frc.robot;
 
 import com.revrobotics.spark.ClosedLoopSlot;
+import com.revrobotics.spark.config.AbsoluteEncoderConfig;
+import com.revrobotics.spark.config.AnalogSensorConfig;
 import com.revrobotics.spark.config.ClosedLoopConfig;
 import com.revrobotics.spark.config.EncoderConfig;
+import com.revrobotics.spark.config.FeedForwardConfig;
+import com.revrobotics.spark.config.LimitSwitchConfig;
+import com.revrobotics.spark.config.SoftLimitConfig;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -30,7 +36,7 @@ import edu.wpi.first.math.util.Units;
 public final class Constants {
 	public static class DriverConstants {
 		public static final int kDriverControllerPort = 0;
-		public static final double joystickDeadzone = 0.1;
+		public static final double joystickDeadzone = 0.15;
 
 		public static double deadbandVal(double val, double deadband) {
 			return MathUtil.applyDeadband(val, deadband);
@@ -128,5 +134,79 @@ public final class Constants {
 		public static final int armAngleMotorID = 0;
 		public static final int intakeWheelMotorID = 0;
 		public static final int netAngleMotorID = 0;
+
+		public static final double armMinAngle = 0;
+		public static final double armMaxAngle = 0;
+		public static final double armGearRatio = 56/32;
+
+		public static final SparkBaseConfig armAngleConfig = new SparkMaxConfig()
+		.idleMode(IdleMode.kBrake)
+		.inverted(true)
+		.apply(new SoftLimitConfig()
+			.reverseSoftLimitEnabled(true)
+			.forwardSoftLimitEnabled(true)
+			.reverseSoftLimit(armMinAngle)
+			.forwardSoftLimit(armMaxAngle))
+		.apply(new AnalogSensorConfig()
+			.positionConversionFactor(armGearRatio))
+		.apply(new ClosedLoopConfig()
+			.p(0)
+			.i(0)
+			.d(0)
+			.apply(new FeedForwardConfig()
+				.kG(0)
+				.kS(0)
+				.kA(0)
+				.kV(0)))
+		.smartCurrentLimit(40);
+
+		//TODO: TUNE
+		public static final double netMinAngle = 0;
+		public static final double netMaxAngle = 0;
+		public static final double netGearRatio = 0;
+		
+		public static final SparkBaseConfig netAngleConfig = new SparkMaxConfig()
+		.idleMode(IdleMode.kBrake)
+		.inverted(true)
+		.apply(new SoftLimitConfig()
+			.reverseSoftLimitEnabled(true)
+			.forwardSoftLimitEnabled(true)
+			.reverseSoftLimit(armMinAngle)
+			.forwardSoftLimit(armMaxAngle))
+		.apply(new AnalogSensorConfig()
+			.positionConversionFactor(armGearRatio))
+		.apply(new ClosedLoopConfig()
+			.p(0)
+			.i(0)
+			.d(0)
+			.apply(new FeedForwardConfig()
+				.kG(0)
+				.kS(0)
+				.kA(0)
+				.kV(0)))
+		.smartCurrentLimit(40);
+
+		//TODO: TUNE, AHHHHHH
+		public static final double wheelGearRatio = 0;
+		
+		public static final SparkBaseConfig wheelMotorConfig = new SparkMaxConfig()
+		.idleMode(IdleMode.kBrake)
+		.inverted(true)
+		.apply(new SoftLimitConfig()
+			.reverseSoftLimitEnabled(false)
+			.forwardSoftLimitEnabled(false))
+		.apply(new AnalogSensorConfig()
+			.velocityConversionFactor\(armGearRatio))
+		.apply(new ClosedLoopConfig()
+			.p(0)
+			.i(0)
+			.d(0)
+			.apply(new FeedForwardConfig()
+				.kG(0)
+				.kS(0)
+				.kA(0)
+				.kV(0)))
+		.smartCurrentLimit(40);
+	
 	}
 }
