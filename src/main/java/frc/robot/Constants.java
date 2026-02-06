@@ -191,12 +191,12 @@ public final class Constants {
 		
 		public static final SparkBaseConfig wheelMotorConfig = new SparkMaxConfig()
 		.idleMode(IdleMode.kBrake)
-		.inverted(true)
+		.inverted(false) // we dont know this value
 		.apply(new SoftLimitConfig()
 			.reverseSoftLimitEnabled(false)
 			.forwardSoftLimitEnabled(false))
 		.apply(new AnalogSensorConfig()
-			.velocityConversionFactor(armGearRatio))
+			.velocityConversionFactor(wheelGearRatio))
 		.apply(new ClosedLoopConfig()
 			.p(0)
 			.i(0)
